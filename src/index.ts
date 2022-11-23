@@ -1,4 +1,5 @@
-import { startCase, sortBy } from 'lodash-es';
+import startCase from 'lodash/startCase';
+import sortBy from 'lodash/sortBy';
 import { sep } from 'path';
 import glob from 'glob';
 
