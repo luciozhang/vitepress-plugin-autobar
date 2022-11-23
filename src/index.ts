@@ -1,10 +1,28 @@
-import startCase from 'lodash/startCase';
-import sortBy from 'lodash/sortBy';
+import { startCase, sortBy } from 'lodash-es';
 import { sep } from 'path';
 import glob from 'glob';
 
-function getName(path) {
-  let name = path.split(sep).pop();
+type Sidebar = SidebarGroup[] | SidebarMulti
+
+interface SidebarMulti {
+  [path: string]: SidebarGroup[]
+}
+
+interface SidebarGroup {
+  text: string
+  items: SidebarItem[]
+  collapsible?: boolean
+  collapsed?: boolean
+}
+
+interface SidebarItem {
+  text: string
+  link: string
+}
+
+// handle md file name
+const getName = (path: string) => {
+  let name = path.split(sep).pop() || path;
   const argsIndex = name.lastIndexOf('--');
   if (argsIndex > -1) {
     name = name.substring(0, argsIndex);
@@ -16,34 +34,31 @@ function getName(path) {
   return startCase(name);
 }
 
-function getDirName(path) {
-  let name = path.split(sep).shift();
+// handle dir name
+const getDirName = (path: string) => {
+  let name = path.split(sep).shift() || path;
   name = name.replace(/^\d+[.\-_ ]?/, '');
 
   return startCase(name);
 }
 
 // Load all MD files in a specified directory
-const getChildren = function (parentPath) {
+const getChildren = function (parentPath: string) {
   const pattern = '/**/*.md';
   const files = glob.sync(parentPath + pattern).map((path) => {
-    path = path.slice(parentPath.length + 1, -3);
-    return { path };
+    const newPath = path.slice(parentPath.length + 1, -3);
+    return { path: newPath };
   });
 
   // Return the ordered list of files, sort by 'path'
   return sortBy(files, ['path']).map(file => file.path);
 };
 
-/**
- * Return sidebar config for given baseDir.
- * @param   {String} baseDir - Absolute path of directory to get sidebar config for.
- */
-function side(baseDir) {
+// Return sidebar config for given baseDir.
+function side(baseDir :string) {
   const mdFiles = getChildren(baseDir);
-  console.log(mdFiles);
 
-  const sidebars = [];
+  const sidebars: Sidebar = [];
   // strip number of folder's name
   mdFiles.forEach((item) => {
     const dirName = getDirName(item);
@@ -65,7 +80,7 @@ function side(baseDir) {
     }
   });
 
-  console.log(JSON.stringify(sidebars));
+  console.info('sidebar is create:', JSON.stringify(sidebars));
   return sidebars;
 }
 

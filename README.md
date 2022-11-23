@@ -9,13 +9,13 @@ npm install -D vitepress-plugin-autobar
 # Usage
 
 ```javascript
-import { getSideBar } from 'vitepress-auto-nav-sidebar'
+import { getSideBar } from 'vitepress-plugin-autobar'
 
 module.exports = {
   // ...
   themeConfig: {
     // ...
-    sidebar: getSideBar(),
+    sidebar: getSideBar("./docs"),
   },
 };
 ```
