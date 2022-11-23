@@ -13,6 +13,10 @@
   ],
   "author": "luciozhang",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/luciozhang/vitepress-plugin-autobar.git"
+  },
   "dependencies": {
     "fs": "^0.0.1-security",
     "glob": "^8.0.3",
