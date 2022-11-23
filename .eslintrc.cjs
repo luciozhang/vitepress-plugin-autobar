@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   extends: [
-    '@tencent/eslint-config-tencent',
+    'eslint-config-tencent',
   ],
   plugins: ['@typescript-eslint'],
   parserOptions: {
