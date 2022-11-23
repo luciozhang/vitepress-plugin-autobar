@@ -1,24 +1,29 @@
 import startCase from 'lodash/startCase';
 import sortBy from 'lodash/sortBy';
+import remove from 'lodash/remove';
 import { sep } from 'path';
 import glob from 'glob';
 
-type Sidebar = SidebarGroup[] | SidebarMulti
+type Sidebar = SidebarGroup[] | SidebarMulti;
 
 interface SidebarMulti {
   [path: string]: SidebarGroup[]
-}
+};
 
 interface SidebarGroup {
   text: string
   items: SidebarItem[]
   collapsible?: boolean
   collapsed?: boolean
-}
+};
 
 interface SidebarItem {
   text: string
   link: string
+};
+
+interface Options {
+  ignoreMDFiles?: Array<string>, // File path to ignore rom being captured.
 }
 
 // handle md file name
@@ -44,20 +49,24 @@ const getDirName = (path: string) => {
 }
 
 // Load all MD files in a specified directory
-const getChildren = function (parentPath: string) {
+const getChildren = function (parentPath: string, ignoreMDFiles: Array<string> = []) {
   const pattern = '/**/*.md';
   const files = glob.sync(parentPath + pattern).map((path) => {
     const newPath = path.slice(parentPath.length + 1, -3);
+    if(ignoreMDFiles?.length && ignoreMDFiles.findIndex(item => item === newPath) !== -1){
+      return undefined;
+    }
     return { path: newPath };
   });
 
+  remove(files, file => file===undefined)
   // Return the ordered list of files, sort by 'path'
-  return sortBy(files, ['path']).map(file => file.path);
+  return sortBy(files, ['path']).map(file => file?.path||'');
 };
 
 // Return sidebar config for given baseDir.
-function side(baseDir :string) {
-  const mdFiles = getChildren(baseDir);
+function side(baseDir: string, options?: Options) {
+  const mdFiles = getChildren(baseDir, options?.ignoreMDFiles);
 
   const sidebars: Sidebar = [];
   // strip number of folder's name
@@ -88,5 +97,6 @@ function side(baseDir :string) {
 /**
  * Returns `sidebar` configuration for VitePress calculated using structrue of directory and files in given path.
  * @param   {String}    rootDir   - Directory to get configuration for.
+ * @param   {Options}    options   - Option to create configuration.
  */
-export const getSideBar = (rootDir = './') => side(rootDir);
+export const getSideBar = (rootDir = './', options?: Options) => side(rootDir, options);

@@ -1,6 +1,6 @@
 {
   "name": "vitepress-plugin-autobar",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Vitepress generator sidebar based on file and directory structure.",
   "main": "lib/index.js",
   "scripts": {

@@ -1,11 +1,32 @@
 Generator sidebar for [Vitepress](https://github.com/vuejs/vitepress) based on file and directory structure.
 
-[![NPM version](https://img.shields.io/npm/v/vitepress-plugin-autobar.svg)](https://www.npmjs.com/package/vitepress-plugin-autobar)  [![NPM downloads](https://img.shields.io/npm/dm/vitepress-plugin-autobar.svg)](https://www.npmjs.com/package/vitepress-plugin-autobar) . [![NPM License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/luciozhang/vitepress-plugin-autobar/blob/master/LICENSE)
+[![NPM version](https://img.shields.io/npm/v/vitepress-plugin-autobar.svg)](https://www.npmjs.com/package/vitepress-plugin-autobar)  [![NPM downloads](https://img.shields.io/npm/dm/vitepress-plugin-autobar.svg)](https://www.npmjs.com/package/vitepress-plugin-autobar)  [![NPM License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/luciozhang/vitepress-plugin-autobar/blob/master/LICENSE)
 
 # Install
 
 ```shell
 npm install -D vitepress-plugin-autobar
+```
+
+# API
+
+## getSideBar
+
+```javascript
+getSideBar(rootDir = './', options?: Options)
+```
+
+- **rootDir**:  `string` Directory to get configuration for
+- **options**: `Options`Option to create configuration
+
+Returns `sidebar` configuration for VitePress calculated using structrue of directory and files in given path.
+
+Type of Options:
+
+```typescript
+interface Options {
+  ignoreMDFiles?: Array<string>, // File path to ignore from being captured.
+}
 ```
 
 # Usage
@@ -18,6 +39,24 @@ module.exports = {
   themeConfig: {
     // ...
     sidebar: getSideBar("./docs"),
+  },
+};
+```
+
+## Ignore Some path
+
+You can pass options to keep some path out of the sidebar.
+
+```javascript
+import { getSideBar } from 'vitepress-plugin-autobar'
+
+module.exports = {
+  // ...
+  themeConfig: {
+    // ...
+    sidebar: getSideBar("./docs", {
+      ignoreMDFiles: ['index'],
+    }),
   },
 };
 ```
@@ -39,7 +78,13 @@ You directory may be like this.
 │  └─ index.md
 ```
 
-Then `getSideBar` will return sidebar data like this. It will work well for vitepress.
+## Generator sidebar
+
+- [x] Then `getSideBar` will return sidebar data like this. It will work well for vitepress.
+- [x] Sidebar will order by file path.
+
+- [x] Number in the file path will be removed.
+
 
 ```json
 [
