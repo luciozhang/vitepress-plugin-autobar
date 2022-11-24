@@ -6,11 +6,14 @@
 export default {
   clearMocks: true,
   collectCoverage: true,
-  coverageDirectory: "coverage",
+  coverageDirectory: 'coverage',
   transformIgnorePatterns: [
-    "<rootDir>/node_modules/(?!lodash-es)"
+    '<rootDir>/node_modules/(?!lodash-es)',
   ],
   moduleNameMapper: {
-    "^lodash-es$": "lodash"
-  }
+    '^lodash-es$': 'lodash',
+  },
+  transform: {
+    '^.+\\.(js|jsx)$': 'babel-jest',
+  },
 };

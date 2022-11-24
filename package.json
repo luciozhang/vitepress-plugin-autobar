@@ -1,12 +1,12 @@
 {
   "name": "vitepress-plugin-autobar",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Vitepress generator sidebar based on file and directory structure.",
   "main": "lib/index.js",
   "scripts": {
     "test": "jest",
-    "lint": "eslint --ext .ts,.js",
-    "lint:fix": "eslint --fix --ext .ts,.js",
+    "lint": "eslint --ext .ts,.js .",
+    "lint:fix": "eslint --fix --ext .ts,.js .",
     "es": "tsc",
     "rollup": "rollup -c",
     "build": "npm run es && npm run rollup"
@@ -30,13 +30,17 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-typescript": "^7.18.6",
     "@rollup/plugin-terser": "^0.1.0",
     "@rollup/plugin-typescript": "^9.0.2",
     "@types/glob": "^8.0.0",
     "@types/lodash-es": "^4.17.6",
     "@types/node": "^18.11.9",
-    "@typescript-eslint/eslint-plugin": "^5.10.0",
-    "@typescript-eslint/parser": "^5.10.0",
+    "@typescript-eslint/eslint-plugin": "^5.44.0",
+    "@typescript-eslint/parser": "^5.44.0",
+    "babel-jest": "^29.3.1",
+    "eslint": "^8.28.0",
     "eslint-config-tencent": "^1.0.4",
     "jest": "^29.3.1",
     "rollup": "^3.4.0"

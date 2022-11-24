@@ -1,13 +1,14 @@
 module.exports = {
   root: true,
+  parser: '@typescript-eslint/parser',
+  plugins: [
+    '@typescript-eslint',
+  ],
   extends: [
     'eslint-config-tencent',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
   ],
-  plugins: ['@typescript-eslint'],
-  parserOptions: {
-    parser: '@typescript-eslint/parser',
-    sourceType: 'module',
-  },
   env: {
     node: true,
     jest: true,
