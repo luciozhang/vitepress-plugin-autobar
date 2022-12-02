@@ -25,6 +25,7 @@ Type of Options:
 
 ```typescript
 interface Options {
+  ignoreDirectory?: Array<string>, // Directoty path to ignore from being captured.
   ignoreMDFiles?: Array<string>, // File path to ignore from being captured.
 }
 ```
@@ -56,6 +57,7 @@ module.exports = {
     // ...
     sidebar: getSideBar("./docs", {
       ignoreMDFiles: ['index'],
+      ignoreDirectory: ['node_modules'],
     }),
   },
 };

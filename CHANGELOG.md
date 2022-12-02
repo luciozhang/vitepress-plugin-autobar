@@ -1,3 +1,9 @@
+# 1.0.7 (2022-12-2)
+
+## Features
+
+Support ignore Directory path from being captured
+
 # 1.0.5 (2022-11-23)
 
 ## Features

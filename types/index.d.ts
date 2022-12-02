@@ -9,6 +9,7 @@ interface SidebarItem {
     link: string;
 }
 interface Options {
+    ignoreDirectory?: Array<string>;
     ignoreMDFiles?: Array<string>;
 }
 /**
