@@ -19,7 +19,7 @@ getSideBar(rootDir = './', options?: Options)
 - **rootDir**:  `string` Directory to get configuration for
 - **options**: `Options`Option to create configuration
 
-Returns `sidebar` configuration for VitePress calculated using structrue of directory and files in given path.
+Returns `sidebar` configuration for VitePress calculated using structure of directory and files in given path.
 
 Type of Options:
 
