@@ -100,7 +100,7 @@ function side(baseDir: string, options?: Options) {
 }
 
 /**
- * Returns `sidebar` configuration for VitePress calculated using structrue of directory and files in given path.
+ * Returns `sidebar` configuration for VitePress calculated using structure of directory and files in given path.
  * @param   {String}    rootDir   - Directory to get configuration for.
  * @param   {Options}    options   - Option to create configuration.
  */
