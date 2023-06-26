@@ -68,51 +68,35 @@ const getChildren = function (parentPath: string, ignoreMDFiles: Array<string> =
 // Return sidebar config for given baseDir.
 function side(baseDir: string, options?: Options) {
   const mdFiles = getChildren(baseDir, options?.ignoreMDFiles);
-  const baseURL = determineBaseURL(baseDir);
 
   const sidebars: Sidebar = [];
   // strip number of folder's name
   mdFiles.forEach((item) => {
     const dirName = getDirName(item);
-    if (
-      options?.ignoreDirectory?.length
-      && options?.ignoreDirectory.findIndex(item => getDirName(item) === dirName) !== -1
-    ) {
+    if (options?.ignoreDirectory?.length
+      && options?.ignoreDirectory.findIndex(item => getDirName(item) === dirName) !== -1) {
       return;
     }
     const mdFileName = getName(item);
     const sidebarItemIndex = sidebars.findIndex(sidebar => sidebar.text === dirName);
-    const link = baseURL ? `${baseURL}/${item}` : item;
-
     if (sidebarItemIndex !== -1) {
       sidebars[sidebarItemIndex].items.push({
         text: mdFileName,
-        link,
+        link: item,
       });
     } else {
       sidebars.push({
         text: dirName,
-        items: [
-          {
-            text: mdFileName,
-            link,
-          },
-        ],
+        items: [{
+          text: mdFileName,
+          link: item,
+        }],
       });
     }
   });
 
-  console.info('sidebar is created:', JSON.stringify(sidebars));
+  console.info('sidebar is create:', JSON.stringify(sidebars));
   return sidebars;
-}
-
-function determineBaseURL(baseDir: string): string {
-  const normalizedBaseDir = baseDir.replace(/^\.\//, '');
-  const parts = normalizedBaseDir.split('/');
-  if (parts.length > 1) {
-    return `/${parts.slice(1).join('/')}`;
-  }
-  return '';
 }
 
 /**
